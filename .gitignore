@@ -1,0 +1,5 @@
+api-st
+api-st/app/node_modules
+db-st
+secrets/postgres_password.txt
+njs-st

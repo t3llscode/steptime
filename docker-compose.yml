@@ -1,0 +1,87 @@
+networks:
+
+  t3lls_gate--app_net:
+    external: true
+
+  t3lls_gate--api_net:
+    external: true
+
+  t3lls_gate--adminer_net:
+    external: true
+
+  api-st--db_net:
+    driver: bridge
+
+  db-st--adminer_net:
+    driver: bridge
+  
+
+secrets:
+
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+
+
+services:
+
+  njs-st:
+    build:
+      context: ./njs-st/next-app
+      dockerfile: prod.Dockerfile
+    restart: always
+    networks: # internal port 3000
+      - t3lls_gate--app_net
+    env_file:
+      - ./njs-st/.env
+    stop_grace_period: 0s
+
+  njs-st-dev:
+    container_name: steptime-njs-st-dev
+    build:
+      context: ./njs-st/next-app
+      dockerfile: dev.Dockerfile
+    restart: always
+    networks: # internal port 3000
+      - t3lls_gate--app_net
+    volumes:
+      - ./njs-st/next-app/src:/app/src
+      - ./njs-st/next-app/public:/app/public
+    env_file:
+      - ./njs-st/.env
+    stop_grace_period: 0s
+
+  api-st:
+    image: node:latest
+    restart: always
+    networks: # internal port 8080
+      - t3lls_gate--api_net
+      - api-st--db_net
+    volumes:
+      - ./api-st/app:/usr/src/app
+    working_dir: /usr/src/app
+    command: ["sh", "-c", "npm install && node st.js"]
+    stop_grace_period: 0sMecklenburg-Vorpommern
+
+  db-st:
+    image: postgres:latest
+    restart: unless-stopped
+    networks:
+      - api-st--db_net
+      - db-st--adminer_net
+    volumes:
+      - ./db-st/data:/var/lib/postgresql/data
+    secrets:
+      - postgres_password
+    environment:
+      POSTGRES_USER: manualuser
+      POSTGRES_DB: steptime
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    command: ["-c", "shared_preload_libraries=uuid-ossp"]
+
+  db-st-adminer:
+    container_name: steptime-db-st-adminer
+    image: adminer
+    restart: always
+    networks: # internal port 8080
+      - t3lls_gate--adminer_net
+      - db-st--adminer_net
