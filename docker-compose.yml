@@ -58,9 +58,11 @@ services:
       - api-st--db_net
     volumes:
       - ./api-st/app:/usr/src/app
+    secrets:
+      - postgres_password
     working_dir: /usr/src/app
     command: ["sh", "-c", "npm install && node st.js"]
-    stop_grace_period: 0sMecklenburg-Vorpommern
+    stop_grace_period: 0s
 
   db-st:
     image: postgres:latest
