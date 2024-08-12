@@ -61,7 +61,7 @@ services:
     secrets:
       - postgres_password
     working_dir: /usr/src/app
-    command: ["sh", "-c", "npm install && node st.js"]
+    command: ["sh", "-c", "npm install && node st.ts"]
     stop_grace_period: 0s
 
   db-st:

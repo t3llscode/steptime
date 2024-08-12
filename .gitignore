@@ -1,5 +1,5 @@
-api-st/app/t3_modules/hidden
-api-st/app/node_modules
+api-st/t3_modules/hidden
+api-st/node_modules
 db-st
 secrets/postgres_password.txt
 njs-st
