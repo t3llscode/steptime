@@ -1,19 +1,15 @@
 {
   "name": "api-st",
   "version": "1.0.0",
-  "description": "main api of steptime",
-  "main": "st.ts",
-  "type": "module",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "start": "node dist/st.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "t3llscode",
-  "dependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^22.3.0",
-    "express": "^4.19.2",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
     "typescript": "^5.5.4"
   }
 }

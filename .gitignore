@@ -1,4 +1,4 @@
-api-st/t3_modules/hidden
+api-st/src/t3_modules/hidden
 api-st/node_modules
 db-st
 secrets/postgres_password.txt
