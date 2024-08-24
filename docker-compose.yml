@@ -50,18 +50,39 @@ services:
       - ./njs-st/.env
     stop_grace_period: 0s
 
-  api-st:
-    image: node:latest
+  # api-st:
+  #   build:
+  #     context: ./api-st
+  #     dockerfile: prod.Dockerfile
+  #   restart: always
+  #   networks: # internal port 8080
+  #     - t3lls_gate--api_net
+  #     - api-st--db_net
+  #   volumes:
+  #     - ./api-st/node_modules:/app/node_modules
+  #     - ./api-st/src:/app/src
+  #     - ./api-st/dist:/app/dist
+  #   secrets:
+  #     - postgres_password
+  #   working_dir: /app
+  #   stop_grace_period: 0s
+
+  api-st-dev:
+    container_name: steptime-api-st-1
+    build:
+      context: ./api-st
+      dockerfile: dev.Dockerfile
     restart: always
     networks: # internal port 8080
       - t3lls_gate--api_net
       - api-st--db_net
     volumes:
-      - ./api-st/app:/usr/src/app
+      - ./api-st/node_modules:/app/node_modules
+      - ./api-st/src:/app/src
+      - ./api-st/dist:/app/dist
     secrets:
       - postgres_password
-    working_dir: /usr/src/app
-    command: ["sh", "-c", "npm install && node st.ts"]
+    working_dir: /app
     stop_grace_period: 0s
 
   db-st:

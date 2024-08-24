@@ -1,5 +1,11 @@
-api-st/src/t3_modules/hidden
+# noce modules, compiled code and old deprecated modules
 api-st/node_modules
-db-st
-secrets/postgres_password.txt
+api-st/dist
+api-st/src/t3_modules/hidden
+
+# next.js and database not ready yetl
 njs-st
+db-st
+
+# docker secrets
+secrets/postgres_password.txt
