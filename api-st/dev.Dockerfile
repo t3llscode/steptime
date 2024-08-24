@@ -7,4 +7,4 @@ COPY . .
 RUN npm install
 
 # Specify the command to run your app
-CMD ["npm", "run", "dev"]
+CMD /bin/sh -c 'export DATABASE_URL=$(cat "$DATABASE_URL_FILE") && npm run dev && npm run prismasetup'

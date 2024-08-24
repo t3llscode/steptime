@@ -18,4 +18,6 @@ RUN npm install --only=production
 
 COPY --from=build_stage /app/dist ./dist
 
-CMD ["npm", "run", "start"]
+CMD /bin/sh -c 'export DATABASE_URL=$(cat "$DATABASE_URL_FILE") && \
+ npm run start && \
+ npm run prismasetup'

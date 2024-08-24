@@ -21,6 +21,9 @@ secrets:
   postgres_password:
     file: ./secrets/postgres_password.txt
 
+  postgres_connection:
+    file: ./secrets/postgres_connection.txt
+
 
 services:
 
@@ -64,6 +67,9 @@ services:
   #     - ./api-st/dist:/app/dist
   #   secrets:
   #     - postgres_password
+  #     - postgres_connection
+  #   environment:
+  #     DATABASE_URL_FILE: /run/secrets/postgres_connection
   #   working_dir: /app
   #   stop_grace_period: 0s
 
@@ -82,6 +88,9 @@ services:
       - ./api-st/dist:/app/dist
     secrets:
       - postgres_password
+      - postgres_connection
+    environment:
+      DATABASE_URL_FILE: /run/secrets/postgres_connection
     working_dir: /app
     stop_grace_period: 0s
 

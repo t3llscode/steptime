@@ -1,7 +1,7 @@
 # noce modules, compiled code and old deprecated modules
 api-st/node_modules
 api-st/dist
-api-st/src/t3_modules/hidden
+api-st/tsconfig.tsbuildinfo
 
 # next.js and database not ready yetl
 njs-st
@@ -9,3 +9,4 @@ db-st
 
 # docker secrets
 secrets/postgres_password.txt
+secrets/postgres_connection.txt

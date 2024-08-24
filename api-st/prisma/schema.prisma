@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model City {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(32)
+  teams Team[]
+}
+
+model Company {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(32)
+  teams Team[]
+}
+
+model Entry {
+  id        Int      @id @default(autoincrement())
+  time      DateTime @default(now()) @db.Timestamptz
+  amount    Int
+  memberId  Int      @map("member_id") @db.SmallInt
+  member    Member   @relation(fields: [memberId], references: [id])
+}
+
+model Member {
+  id     Int      @id @default(autoincrement())
+  name   String   @db.VarChar(32)
+  teamId Int      @map("team_id")
+  joined DateTime @default(now()) @db.Timestamptz
+  team   Team     @relation(fields: [teamId], references: [id])
+  entries Entry[]
+}
+
+model Team {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(32)
+  companyId Int?     @map("company_id")
+  joined    DateTime @default(now()) @db.Timestamptz
+  cityId    Int?     @map("city_id")
+  company   Company? @relation(fields: [companyId], references: [id])
+  city      City?    @relation(fields: [cityId], references: [id])
+  members   Member[]
+}

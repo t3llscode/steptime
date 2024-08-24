@@ -2,6 +2,8 @@
 
 import express from 'express'
 
+import { prismaRoutes } from './t3_modules/prismaRoutes'
+
 const app = express()
 
 app.get('/online', (req, res) => {
@@ -10,5 +12,7 @@ app.get('/online', (req, res) => {
         message: "Online!"
     })
 })
+
+app.use(prismaRoutes)
 
 app.listen(8080, () => console.log(`api-st is running`))

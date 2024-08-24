@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "nodemon src/index.ts",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "prismasetup": "prisma generate"
   },
   "keywords": [],
   "author": "t3llscode",
@@ -14,11 +15,11 @@
     "@types/express": "^4.17.21",
     "@types/node": "^22.5.0",
     "nodemon": "^3.1.4",
-    "typescript": "^5.5.4",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "prisma": "^5.18.0"
+    "@prisma/client": "^5.18.0",
+    "express": "^4.19.2"
   }
 }
