@@ -18,6 +18,4 @@ RUN npm install --only=production
 
 COPY --from=build_stage /app/dist ./dist
 
-CMD /bin/sh -c 'export DATABASE_URL=$(cat "$DATABASE_URL_FILE") && \
- npm run start && \
- npm run prismasetup'
+# Command in docker-compose.yml

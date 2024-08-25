@@ -11,12 +11,14 @@ model City {
   id    Int    @id @default(autoincrement())
   name  String @db.VarChar(32)
   teams Team[]
+  @@map(name: "city")
 }
 
 model Company {
   id    Int    @id @default(autoincrement())
   name  String @db.VarChar(32)
   teams Team[]
+  @@map(name: "company")
 }
 
 model Entry {
@@ -25,6 +27,7 @@ model Entry {
   amount    Int
   memberId  Int      @map("member_id") @db.SmallInt
   member    Member   @relation(fields: [memberId], references: [id])
+  @@map(name: "entry")
 }
 
 model Member {
@@ -34,6 +37,7 @@ model Member {
   joined DateTime @default(now()) @db.Timestamptz
   team   Team     @relation(fields: [teamId], references: [id])
   entries Entry[]
+  @@map(name: "member")
 }
 
 model Team {
@@ -45,4 +49,5 @@ model Team {
   company   Company? @relation(fields: [companyId], references: [id])
   city      City?    @relation(fields: [cityId], references: [id])
   members   Member[]
+  @@map(name: "team")
 }
