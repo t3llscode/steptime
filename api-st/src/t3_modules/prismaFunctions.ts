@@ -3,6 +3,8 @@
 import { PrismaClient} from '@prisma/client'
 import type { City, Company, Entry, Member, Team } from '@prisma/client'
 
+import PrismaUtility from './prismaUtility'
+
 const prisma = new PrismaClient()
 
 // \\\\\\\\\\ Database Connections ////////// \\
@@ -10,9 +12,9 @@ const prisma = new PrismaClient()
 export class PrismaFunctions {
 
     // Get all cities
-    static async getAllCityEntries(): Promise<City[]> {
+    static async getAllCityEntriesList(): Promise<string[]> {
         const entries = await prisma.city.findMany();
-        return entries;
-    };
+        return PrismaUtility.unpackValues(entries, 'name');
+    }
 
 }

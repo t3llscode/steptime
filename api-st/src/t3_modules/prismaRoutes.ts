@@ -6,10 +6,10 @@ import { PrismaFunctions } from './prismaFunctions';
 
 export const prismaRoutes = Router();
 
-prismaRoutes.get('/prisma', (req, res) => {
+prismaRoutes.get('/prisma', async (req, res) => {
     res.json({
         error: false,
         message: "Prisma!",
-        cities: PrismaFunctions.getAllCityEntries()
+        cities: await PrismaFunctions.getAllCityEntriesList()
     })
 })
