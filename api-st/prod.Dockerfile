@@ -18,4 +18,6 @@ RUN npm install --only=production
 
 COPY --from=build_stage /app/dist ./dist
 
-# Command in docker-compose.yml
+CMD export DATABASE_URL=$(cat /run/secrets/postgres_connection) && \
+    npm run start && \
+    npm run prismasetup

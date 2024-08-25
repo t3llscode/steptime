@@ -10,5 +10,3 @@ RUN npm install
 CMD export DATABASE_URL=$(cat /run/secrets/postgres_connection) && \
     npm run dev && \
     npm run prismasetup
-
-RUN echo $DATABASE_URL

@@ -68,9 +68,6 @@ services:
   #   secrets:
   #     - postgres_password
   #     - postgres_connection
-  #   entrypoint: export DATABASE_URL=$(cat /run/secrets/postgres_connection)
-  #   command: npm run dev && npm run prismasetup
-  #   working_dir: /app
   #   stop_grace_period: 0s
 
   api-st-dev:
@@ -89,7 +86,6 @@ services:
     secrets:
       - postgres_password
       - postgres_connection
-    working_dir: /app
     stop_grace_period: 0s
 
   db-st:
@@ -103,7 +99,7 @@ services:
     secrets:
       - postgres_password
     environment:
-      POSTGRES_USER: env[].valueFrom.manualuser 
+      POSTGRES_USER: manualuser 
       POSTGRES_DB: steptime
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
     command: ["-c", "shared_preload_libraries=uuid-ossp"]
