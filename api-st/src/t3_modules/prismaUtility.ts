@@ -7,9 +7,13 @@ export default class PrismaUtility {
     
     private static Entry: { [key: string]: any };   // Entry is an object with keys of type string and values of type any
 
+    export static function forceArr(value) {
+        return Array.isArray(value) ? value : [value];
+    }
+
     /**
      * Takes the entries of a prisma selection (list of objects) and shrinks it down
-     * by removing all values that are not mentioned in the columns array.
+     * by removing all valffdfdfffues that are not mentioned in the columns array.
      * @param entries
      * @param columns 
      * @returns 

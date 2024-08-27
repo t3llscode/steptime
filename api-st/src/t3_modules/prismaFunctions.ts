@@ -5,16 +5,29 @@ import type { City, Company, Entry, Member, Team } from '@prisma/client'
 
 import PrismaUtility from './prismaUtility'
 
-const prisma = new PrismaClient()
+export const client = new PrismaClient()
 
 // \\\\\\\\\\ Database Connections ////////// \\
 
 export class PrismaFunctions {
 
-    // Get all cities
-    static async getAllCityEntriesList(): Promise<string[]> {
-        const entries = await prisma.city.findMany();
-        return PrismaUtility.unpackValues(entries, 'name');
+    // returns the id of an existing entry, otherwise -1
+    static async entryExists(table: any, data: object): Promise<number> {
+        const entry = await table.findFirst({
+            where: data
+        });
+        return entry ? entry.id : -1;
     }
 
+    static async getCreateID(table: any, data: object): Promise<number> {
+        let id = await this.entryExists(table, data);
+        if (id !== -1) {
+            return id;
+        } else {
+            table.create({
+                data
+            })
+            return await this.entryExists(table, data);
+        }
+    }
 }
