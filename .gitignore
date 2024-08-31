@@ -4,7 +4,6 @@ api-st/dist
 api-st/tsconfig.tsbuildinfo
 
 # next.js and database not ready yetl
-njs-st
 db-st
 
 # docker secrets
