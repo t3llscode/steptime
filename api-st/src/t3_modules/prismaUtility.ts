@@ -4,7 +4,6 @@
 
 export default class PrismaUtility {
 
-    
     private static Entry: { [key: string]: any };   // Entry is an object with keys of type string and values of type any
 
     export static function forceArr(value) {
