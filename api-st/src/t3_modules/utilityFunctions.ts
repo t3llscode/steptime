@@ -1,4 +1,5 @@
- 
+ // \\\\\\\\\\ Import / Export ////////// \\
+import * as ExitUtility from './exitUtility';
 
  /**
  * Check for undefined parameters and exit if any are found
@@ -7,10 +8,19 @@
  * @param {number} internalCode - An internal code representing the operation status, used for logging and error reporting.
  * Note: The function relies on external functions and variables such as `returnOrExit`, which should be defined in the same or imported scope.
  */
-export function checkForUndefinedOrExit(body: object, parameters: string[], internalCode: number) {
+export function checkForUndefinedOrExit(body: any, parameters: string[], internalCode: number) {
     const missingParameters = forceArr(parameters).filter((param: string) => !body[param] && body[param] !== 0);
     if (missingParameters.length > 0) {
         const missingParamsString = missingParameters.join(", ");
-        returnOrExit({ error: true, usermessage: `Missing required parameter(s): ${missingParamsString}` }, {}, internalCode, 400, `${missingParamsString} undefined`, []);
+        ExitUtility.returnOrExit(body.path, { error: true, usermessage: `Missing required parameter(s): ${missingParamsString}` }, {}, internalCode, 400, `${missingParamsString} undefined`, []);
     }
+}
+
+
+
+function forceArr(value: any): any[] {
+    if (!Array.isArray(value)) {
+        return [value];
+    }
+    return value;
 }

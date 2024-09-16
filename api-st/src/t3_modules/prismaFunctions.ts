@@ -19,7 +19,7 @@ export class PrismaFunctions {
         return entry ? entry.id : -1;
     }
 
-    static async getCreateID(table: any, data: object): Promise<number> {
+    static async getCreateID(table: any, data: object, required?: string[], optional?: string[]): Promise<number> {
         let id = await this.entryExists(table, data);
         if (id !== -1) {
             return id;

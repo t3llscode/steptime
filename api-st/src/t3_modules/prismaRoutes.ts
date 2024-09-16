@@ -38,3 +38,21 @@ prismaRoutes.post('/id', async (req, res) => {
         id
     })
 })
+
+// register a new user
+prismaRoutes.post('/register', async (req, res) => {
+    const id = await PrismaFunctions.getCreateID("member", req.body.data);
+    // a member needs a name a password 
+    res.json({
+        id
+    })
+})
+
+// login a user
+prismaRoutes.post('/login', async (req, res) => {
+    const id = await PrismaFunctions.getCreateID(client[req.body.table], req.body.data);
+    res.json({
+        id
+    })
+})
+
