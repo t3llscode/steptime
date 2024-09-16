@@ -5,6 +5,7 @@ import type { City, Company, Entry, Member, Team } from '@prisma/client'
 
 import { PrismaFunctions } from './prismaFunctions';
 import { client } from './prismaFunctions';
+import { checkForUndefinedOrExit } from './utilityFunctions';
 
 export const prismaRoutes = Router();
 
@@ -30,6 +31,18 @@ prismaRoutes.get('/prisma', async (req, res) => {
 //         })
 //     }
 // })
+
+// create a new city or / and return the id
+// Header: none (but has to get one in the future)
+// Body: city, create
+
+
+
+prismaRoutes.post('/city/create', async (req, res) => {
+    req.body.city
+    PrismaFunctioncheckForUndefinedOrExit(req.body, "city")
+    PrismaFunctions.getCreateID("city", )
+})
 
 // disable in production
 prismaRoutes.post('/id', async (req, res) => {
