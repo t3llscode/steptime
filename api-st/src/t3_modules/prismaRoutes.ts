@@ -1,13 +1,14 @@
-// create a new router
+// \\\\\\\\\\ Import & Export ////////// \\
 
 import { Router } from 'express';
 import type { City, Company, Entry, Member, Team } from '@prisma/client'
 
-import { PrismaFunctions } from './prismaFunctions';
-import { client } from './prismaFunctions';
-import { checkForUndefinedOrExit } from './utilityFunctions';
+import { PrismaFunctions, client } from './prismaFunctions';
+import * as erxuit from "./exitUtility"
 
 export const prismaRoutes = Router();
+
+// \\\\\\\\\\ Routes ////////// \\
 
 prismaRoutes.get('/prisma', async (req, res) => {
     res.json({
@@ -15,33 +16,22 @@ prismaRoutes.get('/prisma', async (req, res) => {
     })
 })
 
-// create a new city and return the id
-// prismaRoutes.post('/city/create', async (req, res) => {
-//     const id = await PrismaFunctions.entryExists(client.city, {name: req.body.name});
-//     if (id !== -1) {
-//         res.json({
-//             message: "City already exists!",
-//             id
-//         })
-//     } else {
-//         const city = await PrismaFunctions.createCityEntry(req.body.name);
-//         res.json({
-//             message: "City created!",
-//             city
-//         })
-//     }
-// })
-
 // create a new city or / and return the id
 // Header: none (but has to get one in the future)
 // Body: city, create
-
-
-
 prismaRoutes.post('/city/create', async (req, res) => {
-    req.body.city
-    PrismaFunctioncheckForUndefinedOrExit(req.body, "city")
-    PrismaFunctions.getCreateID("city", )
+    try {
+        erxuit.checkForUndefinedOrExit(req.body, ["name"], 1)
+        const id = await PrismaFunctions.entryExists(client.city, {name: req.body.name});
+        if (id !== -1) {
+            erxuit.returnOrExit({error: false}, {id}, 0, 200, "City already exists!", [])
+        } else {
+            const id = await PrismaFunctions.getCreateID(client.city, {name: req.body.name});
+            erxuit.returnOrExit({error: false}, {id}, 0, 200, "City created!", [])
+        }
+    } catch (err) {
+        erxuit.catchExit(res, req.path, err, {})
+    }
 })
 
 // disable in production

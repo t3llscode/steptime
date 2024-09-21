@@ -24,7 +24,7 @@ export class PrismaFunctions {
         if (id !== -1) {
             return id;
         } else {
-            table.create({
+            await table.create({
                 data
             })
             return await this.entryExists(table, data);

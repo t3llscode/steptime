@@ -2,6 +2,7 @@
 api-st/node_modules
 api-st/dist
 api-st/tsconfig.tsbuildinfo
+api-st/src/t3_modules/template
 
 # next.js and database not ready yetl
 db-st

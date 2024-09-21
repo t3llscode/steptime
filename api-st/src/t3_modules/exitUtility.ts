@@ -1,7 +1,10 @@
+// \\\\\\\\\\ Import / Export ////////// \\
+
+import * as utility from "./utilityFunctions"
+
 // config
 const debugErrors: boolean = true
 const debugSuccess: boolean = true
-
 
 // utility
 class ExitError extends Error {
@@ -18,38 +21,14 @@ class ExitError extends Error {
     }
 }
 
-export function returnOrExit(
-    path: string, 
-    rsp: any,               // TODO: precise build plan, no any
-    object: object, 
-    internalCode: number, 
-    httpCode: number, 
-    usermessage: string, 
-    selector: any[] = []
-) {
+export function returnOrExit(rsp: any, object: object, internalCode: number, httpCode: number, usermessage: string, selector: any[] = []) {
     if (xor(rsp.error, httpCode == 200)) {
-        let msgWord: string;
-        let debug: boolean;
+        let msg: string = rsp.msg || usermessage || "No Message"
 
-        if (!rsp.error) {
-            msgWord = "SUCCESS";
-            debug = debugSuccess;
-        } else {
-            msgWord = "ERROR";
-            debug = debugErrors;
-        }
-
-        let message = `LOG ${msgWord} | Code: ${internalCode} | Path: ${path}`;
-        let tmpUsermessage = usermessage || message;
-
-        if (debug) {
-            console.log(`${message} Msg: ${rsp.msg} | Usermsg: ${usermessage}`);
-        }
-
-        throw new ExitError(rsp.error, httpCode, message, tmpUsermessage, object);
+        throw new ExitError(rsp.error, httpCode, msg, usermessage, object);
 
     } else if (selector.length > 0) {
-        return extractObject(path, rsp, object, internalCode, httpCode, usermessage, selector);
+        return extractObject(rsp, object, internalCode, httpCode, usermessage, selector);
     }
 }
 
@@ -57,15 +36,7 @@ function xor(a: boolean, b: boolean): boolean {
     return (a || b) && !(a && b);
 }
 
-function extractObject(
-    path: string, 
-    rsp: { error: boolean, msg: string, [key: string]: any },
-    object: object, 
-    internalCode: number, 
-    httpCode: number, 
-    usermessage: string, 
-    selector: any[]
-) {
+function extractObject(rsp: { error: boolean, msg: string, [key: string]: any }, object: object, internalCode: number, httpCode: number, usermessage: string, selector: any[]) {
     try {
         let selectedValue: any = rsp;       // TODO: create build plan for selectedValue (not any)
         for (const step of selector) {
@@ -76,11 +47,53 @@ function extractObject(
             }
         }
         return selectedValue;
-    } catch (err: unknown) {
-        if (err instanceof Error) {
-            returnOrExit(path, { error: true, msg: `${rsp.msg} | Selector: [${selector}] | Step/Error: ${err.message}` }, object, internalCode, httpCode, usermessage, []);
-        } else {
-            returnOrExit(path, { error: true, msg: `${rsp.msg} | Selector: [${selector}] | Step/Error: Unknown error` }, object, internalCode, httpCode, usermessage, []);
+    } catch (err: any) {                    // TODO: check if any is correct type
+        returnOrExit({error: true, msg: `${rsp.msg} | Selector: [${selector}] | Step/Error: ${err.message}`}, object, internalCode, httpCode, usermessage, [])
+    }
+}
+
+export function catchExit(
+    res: any,               // TODO: precise build plan, no any
+    path: string, 
+    err: any,               // TODO: precise build plan, no any
+    object: object = {}
+) {
+    let finalError: any = err;  // TODO: precise build plan, no any
+    
+    if (err.error === undefined) {
+        try {
+            returnOrExit({error: true, msg: JSON.stringify({ err: err, name: err.name, stack: err.stack })}, object, 99, 500, "Unknown Error", []);
+        } catch (error) {
+            finalError = error;
         }
+    }
+    
+    let code: number = finalError.code;
+    
+    if (debugErrors || debugSuccess) {
+        let test: string = `${finalError.message} | Path: ${path}`;
+        if ((code !== 200 && debugErrors) || (code === 200 && debugSuccess)) {
+            console.log(`Path: ${path} | Msg: ${finalError.message} | Usermsg: ${finalError.usermessage}`);
+        }
+    }
+
+    if (!finalError.error) { // error boolean is not included in the response if false
+        delete finalError.error;
+    }
+    delete finalError.code;
+    delete finalError.msg;
+
+    return res.status(code).json({ ...finalError });
+}
+
+export function checkForUndefinedOrExit(
+    body: { [key: string]: any }, 
+    parameters: string[], 
+    internalCode: number
+) {
+    const missingParameters = utility.forceArr(parameters).filter(param => body[param] === undefined);
+    if (missingParameters.length > 0) {
+        const missingParamsString = missingParameters.join(", ");
+        returnOrExit({error: true, msg: `Missing required parameter(s): ${missingParamsString}`}, {}, internalCode, 400, `${missingParamsString} undefined`, []);
     }
 }
