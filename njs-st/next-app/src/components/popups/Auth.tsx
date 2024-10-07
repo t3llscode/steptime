@@ -26,7 +26,7 @@ export default function Auth({ rLoginMessage }) {
 
   return (
     <div>
-      <AnimatePresence>
+      <AnimatePresence> 
         {switchOk && form === 'register' && (
           <motion.div
             className={styles.combined}
@@ -46,6 +46,8 @@ export default function Auth({ rLoginMessage }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* The error here potentially is caused by a bug happing in this version, see https://stackoverflow.com/questions/71817106/type-children-element-has-no-properties-in-common-with-type-intrinsicat */}
 
       <AnimatePresence>
         {switchOk && form === 'login' && (
