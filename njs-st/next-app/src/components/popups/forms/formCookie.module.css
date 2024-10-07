@@ -1,0 +1,75 @@
+.out_formcontainer {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 0px;
+    text-align: left;
+}
+
+.in_formcontainer {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 6px;
+    text-align: left;
+}
+
+.h1 {
+    text-align: left;
+    margin: 0px;
+    font-weight: 600;
+    font-size: 4.5rem;
+    width: 100%;
+}
+
+.tag {
+    text-align: left;
+    margin: 0px;
+    font-weight: 600;
+    font-size: 3rem;
+    display: inline-block;
+}
+
+.text {
+    text-align: left;
+    margin: 0px;
+    font-weight: 300;
+    font-size: 2rem;
+    display: inline-block;
+}
+
+.a {
+    color: var(--primary);
+}
+
+.px5 {
+    padding: 2.5px;
+}
+
+.button_box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    text-align: left;
+}
+
+.button {
+    background-color: var(--primary);
+    color: var(--secondary);
+    padding: 12px 20px;
+    font: 2.5rem 'Mohave';
+    font-weight: 600;
+    border: 1px solid var(--primary);
+    cursor: pointer;
+    width: 100%;
+    transition: 0.2s ease-in-out;
+}
+
+.button:hover, .button:hover>a {
+    background-color: transparent;
+    color: var(--primary);
+    box-shadow: 0 0 5px 1px var(--primary);
+}

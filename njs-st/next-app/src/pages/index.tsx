@@ -5,17 +5,26 @@ import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-import Header from './../components/Header/Header';
+import Header from '../components/header/Header';
+import Footer from 'components/footer/Footer';
+
+import FormJoinTeam from 'components/popups/forms/FormJoinTeam';
+import AuthCookieInfo from 'components/popups/Auth';
 
 export default function Home() {
 
     const [secondsLeftInDay, setSecondsLeftInDay] = useState(0);
 
+    const [authMessage, setAuthMessage] = useState('');
+
+    const [authVisible, setAuthVisible] = useState(false);
+
+    const [cookieMessage, setCookieMessage] = useState('');
+
+    const [loginMessage, setLoginMessage] = useState('');
 
     // Transition
     
-
-
     useEffect(() => {
         const calculateSecondsLeftInDay = () => {
         const now = new Date();
@@ -53,12 +62,22 @@ export default function Home() {
                     <link rel="icon" href="https://maintime.io/data/media/maintime.ico" />
                 </Head>
 
-                <main className={styles.main}>
+                <div className={styles.header}>
                     <Header/>
+                </div>
 
-                    <div className={styles.column}>
-                        <h1>Activity Challenges for Teams</h1>
-                        <h3>should never be a financial decision. That's why maintime's StepTime is 100% free. Get active with your team!</h3>
+                {/* <div>
+                    <FormRegister rLoginMessage={setAuthMessage} switchObject={setRegisterVisible}/>
+                </div> */}
+
+
+
+                <main className={styles.main}>
+                    
+
+                    {/* <div className={styles.column}>
+                        <h1>I am building</h1>
+                        <h3>come back at a later time</h3>
                         <div className={styles.row}>
                             <div className={styles.row}>
                                 <button>Join a Team</button>
@@ -69,9 +88,24 @@ export default function Home() {
                                 <p>Look at the achievements of other teams <a href="/leaderboard">here</a>.</p>
                             </div>
                         </div>
+                    </div> */}
+
+                    {/* <div className={styles.authcontainer}>
+                        <FormJoinTeam rLoginMessage={setAuthMessage}/>
+                    </div> */}
+
+                    <div className={styles.authcontainer}>
+                        <AuthCookieInfo rLoginMessage={setLoginMessage} />
                     </div>
 
                 </main>
+
+                <div className={styles.footer}>
+                    <Footer/>
+                </div>
+
+                
+
             </div>
         )
     }

@@ -1,0 +1,73 @@
+.value {
+    font-size: 2.5rem;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.tag {
+    white-space: nowrap;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+}
+
+.header {
+    margin: 1rem 0.5rem;
+    max-width: 1300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #393939;
+}
+
+.header img {
+    transform: translateY(0.05rem);
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    color: var(--primary);
+    margin: 0;
+}
+
+.header h2 {
+    font-size: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 0.05rem;
+    color: var(--primary);
+    margin: 0;
+}
+
+.header_segment {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header button {
+    font-family: "Roboto", sans-serif; /* Set font family */
+    color: var(--primary); /* Set text color */
+    height: 3rem;
+    font-size: 1.5rem; /* Adjusted font-size */
+    font-weight: 300;
+    padding: 0.5rem 1rem; /* Added padding for better appearance */
+    border: none; /* Remove default border */
+    background-color: var(--secondary); /* Set background color */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    border-radius: 10; /* Add border radius for rounded corners */
+    border: 1px solid var(--primary); /* Add border */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.header button:hover {
+    box-shadow: 0 0 3px 1px var(--primary);
+    transition: box-shadow 0.5s;
+}

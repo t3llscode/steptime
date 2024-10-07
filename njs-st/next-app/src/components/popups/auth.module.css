@@ -1,0 +1,32 @@
+.combined {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
+    gap: 6px;
+}
+
+.combined-1st {
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+    gap: 15px;
+}
+
+.h1 {
+    color: var(--primary);
+    text-align: left;
+    margin: 0px;
+    font-weight: 300;
+    font-size: 4rem;
+    width: 100%;
+}
+
+.a {
+    transition: 0.2s ease-in-out;
+}
+
+.a:hover {
+    cursor: pointer;
+}
