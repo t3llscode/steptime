@@ -17,7 +17,8 @@ export default function Home() {
 
     const [authMessage, setAuthMessage] = useState('');
 
-    const [authVisible, setAuthVisible] = useState(false);
+    const [authVisible, setAuthVisible] = useState('');
+    const [authType, setAuthType] = useState('');
 
     const [cookieMessage, setCookieMessage] = useState('');
 
@@ -93,10 +94,6 @@ export default function Home() {
                     {/* <div className={styles.authcontainer}>
                         <FormJoinTeam rLoginMessage={setAuthMessage}/>
                     </div> */}
-
-                    <div className={styles.authcontainer}>
-                        <AuthCookieInfo rLoginMessage={setLoginMessage} />
-                    </div>
 
                 </main>
 

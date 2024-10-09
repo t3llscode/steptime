@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LoginForm from './forms/FormLogin';
 import RegisterForm from './forms/FormJoinTeam';
 
-export default function Auth({ rLoginMessage }) {
+export default function Auth({ authVisible, rAuthVisible, rLoginMessage }) {
   
-  const [form, setForm] = useState('login');
+  const [form, setForm] = useState(authVisible);
   const [switchOk, setSwitchOk] = useState(true);
 
   // switch between login and register form
@@ -23,6 +23,16 @@ export default function Auth({ rLoginMessage }) {
   const toggleSwitchOk = () => {
     setSwitchOk(true);
   }
+
+  const closeAuth = () => {
+    rAuthVisible('');
+  }
+
+  useEffect(() => {
+    console.log('Auth rendered');
+    console.log("form: ", form);
+    console.log("toggleSwitchOk", switchOk);
+  }, [form]);
 
   return (
     <div>
@@ -41,6 +51,7 @@ export default function Auth({ rLoginMessage }) {
             </h1>
             <RegisterForm
               rLoginMessage={rLoginMessage}
+              closeAuth={closeAuth}
               switchObject={{tag: ["or ", "sign in", " with an existing account"], toggle: toggleForm}}
             />
           </motion.div>
@@ -64,6 +75,7 @@ export default function Auth({ rLoginMessage }) {
             </h1>
             <LoginForm
               rLoginMessage={rLoginMessage}
+              closeAuth={closeAuth}
               switchObject={{tag: ["or ", "sign up", " for a new account"], toggle: toggleForm}}
             />
           </motion.div>

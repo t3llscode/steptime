@@ -2,9 +2,18 @@ import { useEffect, useState } from 'react';
 
 import styles from './Header.module.css'
 
+import Auth from '../popups/Auth';
+
 export default function Header() {
 
-    let [menuOpen, setMenuOpen] = useState(false);
+    let [menuOpen, setMenuOpen] = useState(false); // menu bar or narrow screens
+
+    let [authVisible, setAuthVisible] = useState(''); // empty string or type of popup
+    let [loginMessage, setLoginMessage] = useState(''); // empty string or answer message
+
+    function handler() {
+
+    }
 
     useEffect(() => {
         console.log(menuOpen);
@@ -18,9 +27,9 @@ export default function Header() {
                     <h1>StepTime</h1>
                 </div>
                 <div className={styles.button_box}>
-                    <a className={styles.team}>Create Team</a>
-                    <a className={styles.team}>Join Team</a>
-                    <a>Login</a>
+                    <a className={styles.team} onClick={() => setAuthVisible("create")}>Create Team</a>
+                    <a className={styles.team} onClick={() => setAuthVisible("join")}>Join Team</a>
+                    <a onClick={() => setAuthVisible("login")}>Login</a>
                 </div>
                 <img className={styles.menuButton} onClick={() => setMenuOpen(!menuOpen)} src="https://maintime.io/data/media/maintime.ico"/>
             </div>
@@ -31,6 +40,11 @@ export default function Header() {
                     <button>Login</button>
                 </div>
             }
+
+            <div>
+                {authVisible !== '' && <Auth authVisible={authVisible} rAuthVisible={setAuthVisible} rLoginMessage={setLoginMessage} />}
+            </div>
+
         </div>
     );
 }

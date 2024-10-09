@@ -5,7 +5,7 @@ import styles from './formAuth.module.css'
 
 import { useState, useEffect, useContext, useRef } from 'react';
 
-export default function FormLogin({rLoginMessage, switchObject}) {
+export default function FormLogin({rLoginMessage, closeAuth, switchObject}) {
 
   // const tb_identifier = document.getElementById('tb_identifier') as HTMLInputElement;
   // const tb_password = document.getElementById('tb_password') as HTMLInputElement;
@@ -105,17 +105,19 @@ export default function FormLogin({rLoginMessage, switchObject}) {
 // RETURN
 
   return (
-    <form autoComplete="off" onSubmit={handleSubmit}>
-      <div className={styles.formcontainer}>
-        <div className={styles.tagline}>
-          <p className={styles.tag}>{identifierText}</p>
-          {/* <p className={styles.switch}>{switchObject.tag[0]}<a className={styles.a_tag} onClick={switchObject.toggle}>{switchObject.tag[1]}</a>{switchObject.tag[2]}</p> */}
+    <div className={styles.auth_container} onClick={closeAuth}>
+      <form autoComplete="off" onSubmit={handleSubmit}>
+        <div className={styles.formcontainer}>
+          <div className={styles.tagline}>
+            <p className={styles.tag}>{identifierText}</p>
+            {/* <p className={styles.switch}>{switchObject.tag[0]}<a className={styles.a_tag} onClick={switchObject.toggle}>{switchObject.tag[1]}</a>{switchObject.tag[2]}</p> */}
+          </div>
+          <input id="tb_identifier" className={styles.input} type="text" ref={ref_identifier} name="identifier" required/>
+          <p className={styles.tag}>{passwordText}</p>
+          <input id="tb_password" className={`${styles.input} ${styles.password}`} type="password" ref={ref_password} name="password" required/>
+          <button id="btn_login" className={styles.button} type="submit">{buttonText}</button>
         </div>
-        <input id="tb_identifier" className={styles.input} type="text" ref={ref_identifier} name="identifier" required/>
-        <p className={styles.tag}>{passwordText}</p>
-        <input id="tb_password" className={`${styles.input} ${styles.password}`} type="password" ref={ref_password} name="password" required/>
-        <button id="btn_login" className={styles.button} type="submit">{buttonText}</button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
