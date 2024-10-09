@@ -22,10 +22,14 @@ export default function Auth({ authVisible, rAuthVisible, rLoginMessage }) {
   // mark switch as ok after animation
   const toggleSwitchOk = () => {
     setSwitchOk(true);
+    if (form === '') { // close auth if form is empty
+      rAuthVisible('');
+      console.log("IT CLOSED")
+    }
   }
 
   const closeAuth = () => {
-    rAuthVisible('');
+    setForm('');
   }
 
   useEffect(() => {
