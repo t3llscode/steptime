@@ -1,15 +1,13 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-import Header from '../components/header/Header';
-import Footer from 'components/footer/Footer';
+import * as styles from 'styles/Home.module.css'
 
-import FormJoinTeam from 'components/popups/forms/FormJoinTeam';
-import AuthCookieInfo from 'components/popups/Auth';
+import Header from 'components/header/Header';
+import Footer from 'components/footer/Footer';
 
 export default function Home() {
 
