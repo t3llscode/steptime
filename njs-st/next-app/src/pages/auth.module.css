@@ -1,0 +1,82 @@
+.banner {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(68, 88, 37);
+    padding: 1rem 2rem;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid rgb(176, 255, 152);
+    border-radius: 0.5rem;
+}
+
+.banner h1 {
+    font-size: 2rem;
+    margin: 0px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(71, 83, 53);
+    padding: 1rem 2rem;
+    gap: 1rem;
+    border: 2px solid rgb(176, 255, 152);
+    border-radius: 0.5rem;
+}
+
+.info .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navigation button:first-child {
+    margin-right: auto;
+}
+
+.navigation button:last-child {
+    margin-left: auto;
+}
+
+.navigation button {
+    color: white;
+    background-color: rgb(92, 137, 79);
+    border: 2px solid rgb(167, 194, 158);
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.info .row h3 {
+    font-size: 1rem;
+    margin-bottom: 0.1rem;
+}
+
+.info .link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.info .row h2 {
+    font-size: 1.5rem;
+    margin: 0px;
+}
+
+.info p {
+    font-size: 1rem;
+    margin: 0px;
+}
+
+.info h3 {
+    font-size: 1rem;
+    margin: 0px;
+}

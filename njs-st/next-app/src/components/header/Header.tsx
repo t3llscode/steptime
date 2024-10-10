@@ -16,8 +16,8 @@ export default function Header() {
                     <h1>StepTime</h1>
                 </div>
                 <div className={styles.button_box}>
-                    <a href="/login?account=new">Get Started</a>
-                    <a className={styles.team} href="/login?account=existing">Login</a>
+                    <a href="/auth?team=Join?acc=Creation">Get Started</a>
+                    <a className={styles.team} href="/auth">Login</a>
                 </div>
                 <img className={styles.menuButton} onClick={() => setMenuOpen(!menuOpen)} src="https://maintime.io/data/media/maintime.ico"/>
             </div>
@@ -25,9 +25,8 @@ export default function Header() {
             {/* Handling very narrow Displays */}
             {menuOpen && 
                 <div className={styles.header_segment_burger}>
-                    <button>Create Team</button>
-                    <button>Join Team</button>
-                    <button>Login</button>
+                    <a href="/auth?team=Join?acc=Creation">Get Started</a>
+                    <a href="/auth">Login</a>
                 </div>
             }
 
