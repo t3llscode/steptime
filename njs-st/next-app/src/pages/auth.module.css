@@ -1,11 +1,16 @@
+.main {
+    margin: 1rem;
+}
+
 .banner {
     display: flex;
     flex-direction: row;
-    background-color: rgb(68, 88, 37);
+    background-color: black;
     padding: 1rem 2rem;
     justify-content: space-between;
     align-items: center;
     border: 2px solid rgb(176, 255, 152);
+    box-shadow: 0px 0px 10px 0px rgb(176, 255, 152);
     border-radius: 0.5rem;
 }
 
@@ -17,10 +22,11 @@
 .info {
     display: flex;
     flex-direction: column;
-    background-color: rgb(71, 83, 53);
+    background-color: black;
     padding: 1rem 2rem;
     gap: 1rem;
     border: 2px solid rgb(176, 255, 152);
+    box-shadow: 0px 0px 10px 0px rgb(176, 255, 152);
     border-radius: 0.5rem;
 }
 
@@ -49,8 +55,9 @@
 
 .navigation button {
     color: white;
-    background-color: rgb(92, 137, 79);
+    background-color: black;
     border: 2px solid rgb(167, 194, 158);
+    box-shadow: 0px 0px 10px 0px rgb(176, 255, 152);
     border-radius: 2rem;
     padding: 0.5rem 1rem;
     cursor: pointer;

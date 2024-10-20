@@ -7,39 +7,53 @@ import styles from './auth.module.css';
 
 import SelectBar from 'components/auth/selectbar';
 
-export default function Home() {
+export default function Register() {
 
     const router = useRouter();
     const { acc } = router.query;
     const { team } = router.query; // TODO: Implement Auto Team Join
 
     const [step, setStep] = useState(0);
-    const maxStep = 3;
+    const maxStep = 4;
 
-    const [teamAction, setTeamAction] = useState('Login');
-    const [accAction, setAccAction] = useState('Login');
-
-    const accClick = {
-        'Sign Up': ['or', 'login', '', 'Login'],
-        'Login': ['or', 'sign up', '', 'Sign Up']
-    }
+    const [teamAction, setTeamAction] = useState('Join');
+    const [accAction, setAccAction] = useState('Sign Up');
 
     const teamClick = {
-        'Login': ['or', 'join', 'a Team', 'Join'],
         'Join': ['or', 'create', 'a Team', 'Create'],
-        'Create': ['or', 'login', 'a Team', 'Login']
-    }
-
-    const accText  = {
-        'Sign Up': 'Set the name and PIN of your new Account',
-        'Login': 'Insert the credentials of your Account'
+        'Create': ['or', 'join', 'a Team', 'Join']
     }
 
     const teamText = {
-        'Login': 'Insert the credentials of your Team',
         'Join': 'Insert the credentials of the Team you want to join',
         'Create': 'Set a name and password for your new Team'
     }
+
+    const accClick = {
+        'Sign Up': ['or', 'login', 'if you already have an account'],
+    }
+    const accClickLink = "/login"
+
+    const accText  = {
+        'Login': 'Insert the credentials of your Account'
+    }
+
+    function loginRedirect() {
+        router.push('/login')
+    }
+
+    useEffect(() => {
+        const handlePopState = (event) => {
+          console.log('Back button clicked');
+          // Place your custom logic here
+        };
+    
+        window.addEventListener('popstate', handlePopState);
+    
+        return () => {
+          window.removeEventListener('popstate', handlePopState);
+        };
+    }, []);
 
     useEffect(() => {
         console.log(accAction)
@@ -48,13 +62,23 @@ export default function Home() {
     return (
         <div>
             <Head>
-                <title>StepTime Login</title>
+                <title>StepTime Register</title>
                 <link rel="icon" href="https://data.t3l.ls/media/maintime.ico" />
             </Head>
 
-            <main>
+            <main className={styles.main}>
 
                 { step === 0 && (
+                    <>
+                        <div className={styles.banner}>
+                            <h1>Welcome to Step
+                            Time!</h1>
+                            <p>Do you have a Team?</p>
+                        </div>
+                    </>
+                )}
+
+                { step === 1 && (
                     <>
                         <div className={styles.banner}>
                             <h1>Team</h1>
@@ -80,7 +104,7 @@ export default function Home() {
                     </>
                 )}
 
-                { step === 1 && (
+                { step === 2 && (
                     <>
                         <div className={styles.banner}>
                             <h1>Account</h1>
@@ -106,7 +130,7 @@ export default function Home() {
                     </>
                 )}
 
-                { step === 2 && (
+                { step === 3 && (
                     <>
                         <div className={styles.banner}>
                             <h1>Creation</h1>
@@ -122,10 +146,16 @@ export default function Home() {
                 <br></br>
 
                 <div className={styles.navigation}>
-                    { step === 1 && (
+                    { step === 0 && (
+                        <>
+                            <button onClick={() => loginRedirect()}>No</button>
+                            <button onClick={() => setStep(step + 1)}>Yes</button>
+                        </>
+                    )}
+                    { step > 0 && (
                         <button onClick={() => setStep(step - 1)}>Back</button>
                     )}
-                    { step < 2 && (
+                    { step < 3 && (
                         <button onClick={() => setStep(step + 1)}>Next</button>
                     )}
                 </div>
